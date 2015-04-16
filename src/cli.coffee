@@ -1,7 +1,7 @@
 path = require 'path'
 fs = require 'fs-plus'
 optimist = require 'optimist'
-Highlights = require './highlights'
+Textlex = require './textlex'
 
 module.exports = ->
   cli = optimist.describe('h', 'Show this message').alias('h', 'help')
@@ -11,13 +11,13 @@ module.exports = ->
                 .describe('v', 'Output the version').alias('v', 'version').boolean('v')
                 .describe('f', 'File path to use for grammar detection when reading from stdin').alias('f', 'file-path').string('f')
   optimist.usage """
-    Usage: highlights [options] [file]
+    Usage: textlex [options] [file]
 
-    Output the syntax highlighted HTML for a file.
+    Lexically analyse text and output the tokens for each line in JSON format.
 
-    If no input file is specified then the text to highlight is read from standard in.
+    If no input file is specified then the text to analyse is read from standard in.
 
-    If no output file is specified then the HTML is written to standard out.
+    If no output file is specified then the JSON is written to standard out.
   """
 
   if cli.argv.help
@@ -41,7 +41,7 @@ module.exports = ->
       process.exit(1)
       return
 
-    html = new Highlights().highlightSync({filePath, scopeName: cli.argv.scope})
+    html = new Textlex().lexSync({filePath, scopeName: cli.argv.scope})
     if outputPath
       fs.writeFileSync(outputPath, html)
     else
@@ -53,7 +53,7 @@ module.exports = ->
     fileContents = ''
     process.stdin.on 'data', (chunk) -> fileContents += chunk.toString()
     process.stdin.on 'end', ->
-      html = new Highlights().highlightSync({filePath, fileContents, scopeName: cli.argv.scope})
+      html = new Textlex().lexSync({filePath, fileContents, scopeName: cli.argv.scope})
       if outputPath
         fs.writeFileSync(outputPath, html)
       else
