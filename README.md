@@ -1,4 +1,4 @@
-Reads in code, returns an array of tokens for each line.
+A lexical analyser using TextMate-style grammars: reads in code, returns an array of tokens for each line.
 
 Based on [Highlights](https://github.com/atom/highlights).
 
@@ -18,7 +18,7 @@ To convert a source file to tokens use the following code:
 textlex = require 'textlex'
 textlexer = new textlex()
 linetokens = textlexer.lexSync
-  fileContents: 'var hello = "world";'
+  fileContents: "var hello = 'world';\nconsole.log('Hello, ' + hello);"
   scopeName: 'source.js'
 
 console.log linetokens
@@ -27,16 +27,25 @@ console.log linetokens
 Outputs:
 
 ```js
-[ [
-    { value: 'var', scopes: [Object] },
+[ [ { value: 'var', scopes: [Object] },
     { value: ' hello ', scopes: [Object] },
     { value: '=', scopes: [Object] },
     { value: ' ', scopes: [Object] },
-    { value: '"', scopes: [Object] },
+    { value: '\'', scopes: [Object] },
     { value: 'world', scopes: [Object] },
-    { value: '"', scopes: [Object] },
-    { value: ';', scopes: [Object] }
-] ]
+    { value: '\'', scopes: [Object] },
+    { value: ';', scopes: [Object] } ],
+  [ { value: 'console', scopes: [Object] },
+    { value: '.log', scopes: [Object] },
+    { value: '(', scopes: [Object] },
+    { value: '\'', scopes: [Object] },
+    { value: 'Hello, ', scopes: [Object] },
+    { value: '\'', scopes: [Object] },
+    { value: ' ', scopes: [Object] },
+    { value: '+', scopes: [Object] },
+    { value: ' hello', scopes: [Object] },
+    { value: ')', scopes: [Object] },
+    { value: ';', scopes: [Object] } ] ]
 ```
 
 ### Loading Grammars From Modules
