@@ -6,7 +6,7 @@ Textlex = require './textlex'
 module.exports = ->
   cli = optimist.describe('h', 'Show this message').alias('h', 'help')
                 .describe('i', 'Path to file or folder of grammars to include').alias('i', 'include').string('i')
-                .describe('o', 'File path to write the HTML output to').alias('o', 'output').string('o')
+                .describe('o', 'File path to write the JSON output to').alias('o', 'output').string('o')
                 .describe('s', 'Scope name of the grammar to use').alias('s', 'scope').string('s')
                 .describe('v', 'Output the version').alias('v', 'version').boolean('v')
                 .describe('f', 'File path to use for grammar detection when reading from stdin').alias('f', 'file-path').string('f')
@@ -41,11 +41,11 @@ module.exports = ->
       process.exit(1)
       return
 
-    html = new Textlex().lexSync({filePath, scopeName: cli.argv.scope})
+    tokens = new Textlex().lexSync({filePath, scopeName: cli.argv.scope})
     if outputPath
-      fs.writeFileSync(outputPath, html)
+      fs.writeFileSync(outputPath, JSON.stringify tokens, null, 2)
     else
-      console.log(html)
+      console.log(JSON.stringify tokens, null, 2)
   else
     filePath = cli.argv.f
     process.stdin.resume()
@@ -53,8 +53,8 @@ module.exports = ->
     fileContents = ''
     process.stdin.on 'data', (chunk) -> fileContents += chunk.toString()
     process.stdin.on 'end', ->
-      html = new Textlex().lexSync({filePath, fileContents, scopeName: cli.argv.scope})
+      tokens = new Textlex().lexSync({filePath, fileContents, scopeName: cli.argv.scope})
       if outputPath
-        fs.writeFileSync(outputPath, html)
+        fs.writeFileSync(outputPath, JSON.stringify tokens, null, 2)
       else
-        console.log(html)
+        console.log(JSON.stringify tokens, null, 2)
