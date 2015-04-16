@@ -11,13 +11,13 @@
   "bin": "bin/textlex",
   "repository": {
     "type": "git",
-    "url": "https://github.com/atom/textlex"
+    "url": "https://github.com/jonruttan/textlex"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/atom/textlex/issues"
+    "url": "https://github.com/jonruttan/textlex/issues"
   },
-  "homepage": "https://github.com/atom/textlex",
+  "homepage": "https://github.com/jonruttan/textlex",
   "dependencies": {
     "first-mate": "^3.1.0",
     "optimist": "^0.6.1",
