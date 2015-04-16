@@ -2,7 +2,7 @@ Reads in code, returns an array of tokens for each line.
 
 Based on [Highlights](https://github.com/atom/highlights).
 
-[![Build Status](https://travis-ci.org/jonruttan/textlex.svg?branch=master)](https://travis-ci.org/jonruttan/textlex)
+[![Build Status](https://travis-ci.org/jonruttan/textlex.svg)](https://travis-ci.org/jonruttan/textlex)
 
 ### Installing
 
