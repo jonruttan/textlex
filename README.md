@@ -21,31 +21,151 @@ linetokens = textlexer.lexSync
   fileContents: "var hello = 'world';\nconsole.log('Hello, ' + hello);"
   scopeName: 'source.js'
 
-console.log linetokens
+console.log JSON.stringify linetokens, null, 2
 ```
 
 Outputs:
 
 ```js
-[ [ { value: 'var', scopes: [Object] },
-    { value: ' hello ', scopes: [Object] },
-    { value: '=', scopes: [Object] },
-    { value: ' ', scopes: [Object] },
-    { value: '\'', scopes: [Object] },
-    { value: 'world', scopes: [Object] },
-    { value: '\'', scopes: [Object] },
-    { value: ';', scopes: [Object] } ],
-  [ { value: 'console', scopes: [Object] },
-    { value: '.log', scopes: [Object] },
-    { value: '(', scopes: [Object] },
-    { value: '\'', scopes: [Object] },
-    { value: 'Hello, ', scopes: [Object] },
-    { value: '\'', scopes: [Object] },
-    { value: ' ', scopes: [Object] },
-    { value: '+', scopes: [Object] },
-    { value: ' hello', scopes: [Object] },
-    { value: ')', scopes: [Object] },
-    { value: ';', scopes: [Object] } ] ]
+[
+  [
+    {
+      "value": "var",
+      "scopes": [
+        "source.js",
+        "storage.modifier.js"
+      ]
+    },
+    {
+      "value": " hello ",
+      "scopes": [
+        "source.js"
+      ]
+    },
+    {
+      "value": "=",
+      "scopes": [
+        "source.js",
+        "keyword.operator.js"
+      ]
+    },
+    {
+      "value": " ",
+      "scopes": [
+        "source.js"
+      ]
+    },
+    {
+      "value": "'",
+      "scopes": [
+        "source.js",
+        "string.quoted.single.js",
+        "punctuation.definition.string.begin.js"
+      ]
+    },
+    {
+      "value": "world",
+      "scopes": [
+        "source.js",
+        "string.quoted.single.js"
+      ]
+    },
+    {
+      "value": "'",
+      "scopes": [
+        "source.js",
+        "string.quoted.single.js",
+        "punctuation.definition.string.end.js"
+      ]
+    },
+    {
+      "value": ";",
+      "scopes": [
+        "source.js",
+        "punctuation.terminator.statement.js"
+      ]
+    }
+  ],
+  [
+    {
+      "value": "console",
+      "scopes": [
+        "source.js",
+        "entity.name.type.object.js.firebug"
+      ]
+    },
+    {
+      "value": ".log",
+      "scopes": [
+        "source.js",
+        "support.function.js.firebug"
+      ]
+    },
+    {
+      "value": "(",
+      "scopes": [
+        "source.js",
+        "meta.brace.round.js"
+      ]
+    },
+    {
+      "value": "'",
+      "scopes": [
+        "source.js",
+        "string.quoted.single.js",
+        "punctuation.definition.string.begin.js"
+      ]
+    },
+    {
+      "value": "Hello, ",
+      "scopes": [
+        "source.js",
+        "string.quoted.single.js"
+      ]
+    },
+    {
+      "value": "'",
+      "scopes": [
+        "source.js",
+        "string.quoted.single.js",
+        "punctuation.definition.string.end.js"
+      ]
+    },
+    {
+      "value": " ",
+      "scopes": [
+        "source.js"
+      ]
+    },
+    {
+      "value": "+",
+      "scopes": [
+        "source.js",
+        "keyword.operator.js"
+      ]
+    },
+    {
+      "value": " hello",
+      "scopes": [
+        "source.js"
+      ]
+    },
+    {
+      "value": ")",
+      "scopes": [
+        "source.js",
+        "meta.brace.round.js"
+      ]
+    },
+    {
+      "value": ";",
+      "scopes": [
+        "source.js",
+        "punctuation.terminator.statement.js"
+      ]
+    }
+  ]
+]
 ```
 
 ### Loading Grammars From Modules
