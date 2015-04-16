@@ -2,7 +2,7 @@
   "name": "textlex",
   "version": "1.2.0",
   "description": "Text lexer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "lib/textlex.js",
   "scripts": {
     "test": "grunt test",
@@ -20,19 +20,19 @@
   },
   "homepage": "https://github.com/atom/textlex",
   "dependencies": {
-    "first-mate": "^3.0.0",
+    "first-mate": "^3.1.0",
     "optimist": "^0.6.1",
-    "underscore-plus": "^1.5.1",
-    "fs-plus": "^2.2.6",
-    "season": "^5.1.2"
+    "underscore-plus": "^1.6.6",
+    "fs-plus": "^2.7.0",
+    "season": "^5.1.5"
   },
   "devDependencies": {
-    "grunt": "^0.4.4",
+    "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
-    "grunt-coffeelint": "0.0.8",
-    "grunt-contrib-coffee": "^0.10.1",
-    "grunt-shell": "^0.6.4",
-    "jasmine-focused": "^1.0.4",
+    "grunt-coffeelint": "^0.0.13",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-shell": "^1.1.2",
+    "jasmine-focused": "^1.0.7",
     "language-erlang": "^2.0.0"
   }
 }
