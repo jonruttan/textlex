@@ -10,6 +10,7 @@ module.exports = ->
                 .describe('s', 'Scope name of the grammar to use').alias('s', 'scope').string('s')
                 .describe('v', 'Output the version').alias('v', 'version').boolean('v')
                 .describe('f', 'File path to use for grammar detection when reading from stdin').alias('f', 'file-path').string('f')
+                .describe('t', 'Tab for JSON output (a string or the number of spaces to use)').alias('t', 'tab').default('t', '\t')
   optimist.usage """
     Usage: textlex [options] [file]
 
@@ -43,9 +44,9 @@ module.exports = ->
 
     tokens = new Textlex().lexSync({filePath, scopeName: cli.argv.scope})
     if outputPath
-      fs.writeFileSync(outputPath, JSON.stringify tokens, null, 2)
+      fs.writeFileSync(outputPath, JSON.stringify tokens, null, cli.argv.t)
     else
-      console.log(JSON.stringify tokens, null, 2)
+      console.log(JSON.stringify tokens, null, cli.argv.t)
   else
     filePath = cli.argv.f
     process.stdin.resume()
@@ -55,6 +56,6 @@ module.exports = ->
     process.stdin.on 'end', ->
       tokens = new Textlex().lexSync({filePath, fileContents, scopeName: cli.argv.scope})
       if outputPath
-        fs.writeFileSync(outputPath, JSON.stringify tokens, null, 2)
+        fs.writeFileSync(outputPath, JSON.stringify tokens, null, cli.argv.t)
       else
-        console.log(JSON.stringify tokens, null, 2)
+        console.log(JSON.stringify tokens, null, cli.argv.t)
