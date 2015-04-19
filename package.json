@@ -1,6 +1,6 @@
 {
   "name": "textlex",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Lexical analyser using TextMate-style grammars",
   "main": "lib/textlex.js",
   "scripts": {
