@@ -1,4 +1,4 @@
-A lexical analyser using TextMate-style grammars: reads in code, returns an array of tokens for each line.
+A lexical analyser using TextMate-style grammars: reads in code, returns an array with an array of tokens for each line.
 
 Based on [Highlights](https://github.com/atom/highlights).
 
@@ -12,13 +12,25 @@ npm install textlex
 
 ### Using
 
+Run `textlex -h` for full details about the supported options.
+
+To convert a source file to tokenized JSON run the following:
+
+```sh
+textlex file.coffee -o file.json
+```
+
+Now you have a `file.json` file with an array of line token arrays.
+
+#### Using in code
+
 To convert a source file to tokens use the following code:
 
 ```coffee
 textlex = require 'textlex'
 textlexer = new textlex()
 linetokens = textlexer.lexSync
-  fileContents: "var hello = 'world';\nconsole.log('Hello, ' + hello);"
+  fileContents: "var hello = 'world';"
   scopeName: 'source.js'
 
 console.log JSON.stringify linetokens, null, 2
@@ -76,85 +88,6 @@ Outputs:
         "source.js",
         "string.quoted.single.js",
         "punctuation.definition.string.end.js"
-      ]
-    },
-    {
-      "value": ";",
-      "scopes": [
-        "source.js",
-        "punctuation.terminator.statement.js"
-      ]
-    }
-  ],
-  [
-    {
-      "value": "console",
-      "scopes": [
-        "source.js",
-        "entity.name.type.object.js.firebug"
-      ]
-    },
-    {
-      "value": ".log",
-      "scopes": [
-        "source.js",
-        "support.function.js.firebug"
-      ]
-    },
-    {
-      "value": "(",
-      "scopes": [
-        "source.js",
-        "meta.brace.round.js"
-      ]
-    },
-    {
-      "value": "'",
-      "scopes": [
-        "source.js",
-        "string.quoted.single.js",
-        "punctuation.definition.string.begin.js"
-      ]
-    },
-    {
-      "value": "Hello, ",
-      "scopes": [
-        "source.js",
-        "string.quoted.single.js"
-      ]
-    },
-    {
-      "value": "'",
-      "scopes": [
-        "source.js",
-        "string.quoted.single.js",
-        "punctuation.definition.string.end.js"
-      ]
-    },
-    {
-      "value": " ",
-      "scopes": [
-        "source.js"
-      ]
-    },
-    {
-      "value": "+",
-      "scopes": [
-        "source.js",
-        "keyword.operator.js"
-      ]
-    },
-    {
-      "value": " hello",
-      "scopes": [
-        "source.js"
-      ]
-    },
-    {
-      "value": ")",
-      "scopes": [
-        "source.js",
-        "meta.brace.round.js"
       ]
     },
     {
