@@ -19,7 +19,7 @@ describe "Textlex", ->
       expect(tokens).toEqual [ [ { value : 's = "test"', scopes : [ 'source.coffee' ] } ] ]
 
   describe "lexSync", ->
-    it "returns an tokens string", ->
+    it "returns a token array", ->
       textlex = new Textlex()
       tokens = textlex.lexSync(fileContents: 'test')
       expect(tokens).toEqual [ [ { value : 'test', scopes : [ 'text.plain.null-grammar' ] } ] ]
