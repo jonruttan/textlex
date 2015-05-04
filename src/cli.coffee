@@ -12,11 +12,11 @@ module.exports = ->
                 .describe('f', 'File path to use for grammar detection when reading from stdin').alias('f', 'file-path').string('f')
                 .describe('t', 'Tab for JSON output (a string or the number of spaces to use)').alias('t', 'tab').default('t', '\t')
   optimist.usage """
-    Usage: textlex [options] [file]
+    Usage: textlex [options] [file...]
 
     Lexically analyse text and output the tokens for each line in JSON format.
 
-    If no input file is specified then the text to analyse is read from standard in.
+    If no input files are specified then the text to analyse is read from standard in.
 
     If no output file is specified then the JSON is written to standard out.
   """
@@ -29,8 +29,6 @@ module.exports = ->
     {version} = require '../package.json'
     console.log(version)
     return
-
-  [filePath] = cli.argv._
 
   outputPath = cli.argv.output
   outputPath = path.resolve(outputPath) if outputPath
@@ -46,15 +44,16 @@ module.exports = ->
     else
       console.log(stringify tokens, tab)
 
-  if filePath
-    filePath = path.resolve(filePath)
-    unless fs.isFileSync(filePath)
-      console.error("Specified path is not a file: #{filePath}")
-      process.exit(1)
-      return
+  if cli.argv._
+    for filePath in cli.argv._
+      filePath = path.resolve(filePath)
+      unless fs.isFileSync(filePath)
+        console.error("Specified path is not a file: #{filePath}")
+        process.exit(1)
+        return
 
-    tokens = textlex.lexSync({filePath, scopeName: cli.argv.scope})
-    output outputPath, tokens, cli.argv.tab
+      tokens = textlex.lexSync({filePath, scopeName: cli.argv.scope})
+      output outputPath, tokens, cli.argv.tab
   else
     filePath = cli.argv.f
     process.stdin.resume()
