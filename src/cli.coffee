@@ -44,7 +44,7 @@ module.exports = ->
     else
       console.log(stringify tokens, tab)
 
-  if cli.argv._
+  if cli.argv._.length
     for filePath in cli.argv._
       filePath = path.resolve(filePath)
       unless fs.isFileSync(filePath)
