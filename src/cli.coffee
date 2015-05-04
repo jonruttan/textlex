@@ -35,7 +35,7 @@ module.exports = ->
   outputPath = cli.argv.output
   outputPath = path.resolve(outputPath) if outputPath
 
-  textlex = new Textlex()
+  textlex = new Textlex(includePath: cli.argv.include)
 
   stringify = (tokens, tab) ->
     JSON.stringify tokens, null, tab
