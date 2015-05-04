@@ -35,6 +35,17 @@ module.exports = ->
   outputPath = cli.argv.output
   outputPath = path.resolve(outputPath) if outputPath
 
+  textlex = new Textlex()
+
+  stringify = (tokens, tab) ->
+    JSON.stringify tokens, null, tab
+
+  output = (outputPath, tokens, tab) ->
+    if outputPath
+      fs.writeFileSync(outputPath, stringify tokens, tab)
+    else
+      console.log(stringify tokens, tab)
+
   if filePath
     filePath = path.resolve(filePath)
     unless fs.isFileSync(filePath)
@@ -42,11 +53,8 @@ module.exports = ->
       process.exit(1)
       return
 
-    tokens = new Textlex().lexSync({filePath, scopeName: cli.argv.scope})
-    if outputPath
-      fs.writeFileSync(outputPath, JSON.stringify tokens, null, cli.argv.t)
-    else
-      console.log(JSON.stringify tokens, null, cli.argv.t)
+    tokens = textlex.lexSync({filePath, scopeName: cli.argv.scope})
+    output outputPath, tokens, cli.argv.tab
   else
     filePath = cli.argv.f
     process.stdin.resume()
@@ -54,8 +62,5 @@ module.exports = ->
     fileContents = ''
     process.stdin.on 'data', (chunk) -> fileContents += chunk.toString()
     process.stdin.on 'end', ->
-      tokens = new Textlex().lexSync({filePath, fileContents, scopeName: cli.argv.scope})
-      if outputPath
-        fs.writeFileSync(outputPath, JSON.stringify tokens, null, cli.argv.t)
-      else
-        console.log(JSON.stringify tokens, null, cli.argv.t)
+      tokens = textlex.lexSync({filePath, fileContents, scopeName: cli.argv.scope})
+      output outputPath, tokens, cli.argv.tab
