@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Textlex by jonruttan</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Textlex</h1>
+        <p>Lexical analyser using TextMate-style grammars.</p>
+
+        <p class="view"><a href="https://github.com/jonruttan/textlex">View the Project on GitHub <small>jonruttan/textlex</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/jonruttan/textlex/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/jonruttan/textlex/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/jonruttan/textlex">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>A lexical analyser using TextMate-style grammars: reads in code, returns an array containing an array of tokens for each line.</p>
+
+<p>Based on code converted from the <a href="https://github.com/atom/highlights">Highlights</a> project.</p>
+
+<p><a href="https://travis-ci.org/jonruttan/textlex"><img src="https://travis-ci.org/jonruttan/textlex.svg" alt="Build Status"></a></p>
+
+<h3>
+<a id="installing" class="anchor" href="#installing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing</h3>
+
+<div class="highlight highlight-sh"><pre>npm install textlex</pre></div>
+
+<h3>
+<a id="using" class="anchor" href="#using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h3>
+
+<p>Run <code>textlex -h</code> for full details about the supported options.</p>
+
+<p>To convert a source file to tokenized JSON run the following:</p>
+
+<div class="highlight highlight-sh"><pre>textlex file.coffee -o file.json</pre></div>
+
+<p>Now you have a <code>file.json</code> file with an array of line token arrays.</p>
+
+<p>Check out the <a href="https://jonruttan.github.io/textlex/examples">examples</a> to see
+it in action.</p>
+
+<h4>
+<a id="using-in-code" class="anchor" href="#using-in-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using in code</h4>
+
+<p>To convert a source file to tokens use the following code:</p>
+
+<div class="highlight highlight-coffee"><pre><span class="pl-v"><span class="pl-v">textlex <span class="pl-k">=</span></span></span> <span class="pl-c1">require</span> <span class="pl-s"><span class="pl-pds">'</span>textlex<span class="pl-pds">'</span></span>
+<span class="pl-v"><span class="pl-v">textlexer <span class="pl-k">=</span></span></span> <span class="pl-k">new</span> <span class="pl-en">textlex</span>()
+<span class="pl-v"><span class="pl-v">linetokens <span class="pl-k">=</span></span></span> textlexer.lexSync
+  <span class="pl-v"><span class="pl-v">fileContents:</span></span> <span class="pl-s"><span class="pl-pds">"</span>var hello = 'world';<span class="pl-pds">"</span></span>
+  <span class="pl-v"><span class="pl-v">scopeName:</span></span> <span class="pl-s"><span class="pl-pds">'</span>source.js<span class="pl-pds">'</span></span>
+
+<span class="pl-en">console</span>.<span class="pl-c1">log</span> JSON.stringify linetokens, <span class="pl-c1">null</span>, <span class="pl-c1">2</span></pre></div>
+
+<p>Outputs:</p>
+
+<div class="highlight highlight-js"><pre>[
+  [
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>var<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+        <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>storage.modifier.js<span class="pl-pds">"</span></span>
+      ]
+    },
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span> hello <span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+        <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>
+      ]
+    },
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>=<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+        <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>keyword.operator.js<span class="pl-pds">"</span></span>
+      ]
+    },
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+        <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>
+      ]
+    },
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+        <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>string.quoted.single.js<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>punctuation.definition.string.begin.js<span class="pl-pds">"</span></span>
+      ]
+    },
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>world<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+        <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>string.quoted.single.js<span class="pl-pds">"</span></span>
+      ]
+    },
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+        <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>string.quoted.single.js<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>punctuation.definition.string.end.js<span class="pl-pds">"</span></span>
+      ]
+    },
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>;<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+        <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>punctuation.terminator.statement.js<span class="pl-pds">"</span></span>
+      ]
+    }
+  ]
+]</pre></div>
+
+<h3>
+<a id="loading-grammars-from-modules" class="anchor" href="#loading-grammars-from-modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Loading Grammars From Modules</h3>
+
+<p>textlex exposes the method <code>requireGrammarsSync</code>, for loading grammars from
+npm modules. The usage is as follows:</p>
+
+<div class="highlight highlight-bash"><pre>npm install atom-language-clojure</pre></div>
+
+<div class="highlight highlight-coffee"><pre><span class="pl-v"><span class="pl-v">textlex <span class="pl-k">=</span></span></span> <span class="pl-c1">require</span> <span class="pl-s"><span class="pl-pds">'</span>textlex<span class="pl-pds">'</span></span>
+<span class="pl-v"><span class="pl-v">textlexer <span class="pl-k">=</span></span></span> <span class="pl-k">new</span> <span class="pl-en">textlex</span>()
+textlexer.requireGrammarsSync
+  <span class="pl-v"><span class="pl-v">modulePath:</span></span> <span class="pl-c1">require</span>.resolve(<span class="pl-s"><span class="pl-pds">'</span>atom-language-clojure/package.json<span class="pl-pds">'</span></span>)</pre></div>
+
+<h3>
+<a id="developing" class="anchor" href="#developing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developing</h3>
+
+<ul>
+<li>Clone this repository <code>git clone https://github.com/jonruttan/textlex</code>
+</li>
+<li>Update the submodules by running <code>git submodule update --init --recursive</code>
+</li>
+<li>Run <code>npm install</code> to install the dependencies, compile the CoffeeScript, and
+build the grammars</li>
+<li>Run <code>npm test</code> to run the specs</li>
+</ul>
+
+<p><img class="emoji" title=":green_heart:" alt=":green_heart:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f49a.png" height="20" width="20" align="absmiddle"> Pull requests are greatly appreciated and welcomed.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/jonruttan">jonruttan</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
