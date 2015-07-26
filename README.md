@@ -22,6 +22,9 @@ textlex file.coffee -o file.json
 
 Now you have a `file.json` file with an array of line token arrays.
 
+Check out the [examples](https://jonruttan.github.io/textlex/examples) to see
+it in action.
+
 #### Using in code
 
 To convert a source file to tokens use the following code:
