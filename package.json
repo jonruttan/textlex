@@ -19,8 +19,9 @@
   },
   "homepage": "https://github.com/jonruttan/textlex",
   "dependencies": {
-    "first-mate": "^3.1.0",
     "optimist": "^0.6.1",
+    "first-mate": "^6.2.1",
+    "first-mate-select-grammar": "^1.0.1",
     "fs-plus": "^2.9.3",
     "season": "^5.4.1",
     "underscore-plus": "^1.6.6",

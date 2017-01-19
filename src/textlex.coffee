@@ -2,6 +2,7 @@ path = require 'path'
 _ = require 'underscore-plus'
 fs = require 'fs-plus'
 CSON = require 'season'
+pickGrammar = require('first-mate-select-grammar')()
 {GrammarRegistry} = require 'first-mate'
 
 module.exports =
@@ -68,8 +69,8 @@ class Textlex
 
     fileContents ?= fs.readFileSync(filePath, 'utf8') if filePath
     grammar = @registry.grammarForScopeName(scopeName)
-    grammar ?= @registry.selectGrammar(filePath, fileContents)
     lineTokens = grammar.tokenizeLines(fileContents)
+    grammar ?= pickGrammar.selectGrammar(@registry, filePath, fileContents)
 
     # Remove trailing newline
     if lineTokens.length > 0
