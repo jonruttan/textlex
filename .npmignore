@@ -1,10 +1,10 @@
 .npmignore
-*.coffee
-script
+script/
 .DS_Store
 npm-debug.log
 .travis.yml
-deps
-tasks
-tmp
+deps/
+tasks/
+tmp/
+*.coffee
 .gitmodules
