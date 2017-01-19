@@ -3,3 +3,6 @@ lib
 gen
 tmp
 npm-debug.log
+
+# Sublime Text editor files
+*.sublime-*
