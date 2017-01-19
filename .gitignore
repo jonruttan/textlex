@@ -1,8 +1,9 @@
-node_modules
-lib
-gen
-tmp
+node_modules/
+.DS_Store
 npm-debug.log
+lib/
+gen/
+tmp/
 
 # Sublime Text editor files
 *.sublime-*
