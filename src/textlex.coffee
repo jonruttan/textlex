@@ -1,3 +1,5 @@
+'use strict'
+
 path = require 'path'
 _ = require 'underscore-plus'
 fs = require 'fs-plus'
@@ -14,23 +16,23 @@ class Textlex
   #                  register.
   #   :registry    - An optional GrammarRegistry instance.
   constructor: ({@includePath, @registry}={}) ->
-    @registry ?= new GrammarRegistry(maxTokensPerLine: Infinity)
+    @registry ?= new GrammarRegistry maxTokensPerLine: Infinity
 
   loadGrammarsSync: ->
     return if @registry.grammars.length > 1
 
     if typeof @includePath is 'string'
-      if fs.isFileSync(@includePath)
-        @registry.loadGrammarSync(@includePath)
-      else if fs.isDirectorySync(@includePath)
-        for filePath in fs.listSync(@includePath, ['cson', 'json'])
-          @registry.loadGrammarSync(filePath)
+      if fs.isFileSync @includePath
+        @registry.loadGrammarSync @includePath
+      else if fs.isDirectorySync @includePath
+        for filePath in fs.listSync @includePath, ['cson', 'json']
+          @registry.loadGrammarSync filePath
 
-    grammarsPath = path.join(__dirname, '..', 'gen', 'grammars.json')
-    for grammarPath, grammar of JSON.parse(fs.readFileSync(grammarsPath))
+    grammarsPath = path.join __dirname, '..', 'gen', 'grammars.json'
+    for grammarPath, grammar of JSON.parse fs.readFileSync grammarsPath
       continue if @registry.grammarForScopeName(grammar.scopeName)?
-      grammar = @registry.createGrammar(grammarPath, grammar)
-      @registry.addGrammar(grammar)
+      grammar = @registry.createGrammar grammarPath, grammar
+      @registry.addGrammar grammar
 
   # Public: Require all the grammars from the grammars folder at the root of an
   #   npm module.
@@ -41,18 +43,18 @@ class Textlex
   requireGrammarsSync: ({modulePath}={}) ->
     @loadGrammarsSync()
 
-    if fs.isFileSync(modulePath)
-      packageDir = path.dirname(modulePath)
+    if fs.isFileSync modulePath
+      packageDir = path.dirname modulePath
     else
       packageDir = modulePath
 
-    grammarsDir = path.resolve(packageDir, 'grammars')
+    grammarsDir = path.resolve packageDir, 'grammars'
 
-    return unless fs.isDirectorySync(grammarsDir)
+    return unless fs.isDirectorySync grammarsDir
 
-    for file in fs.readdirSync(grammarsDir)
-      if grammarPath = CSON.resolve(path.join(grammarsDir, file))
-        @registry.loadGrammarSync(grammarPath)
+    for file in fs.readdirSync grammarsDir
+      if grammarPath = CSON.resolve path.join grammarsDir, file
+        @registry.loadGrammarSync grammarPath
 
   # Public: Lex the given file synchronously.
   #
@@ -68,9 +70,9 @@ class Textlex
     @loadGrammarsSync()
 
     fileContents ?= fs.readFileSync(filePath, 'utf8') if filePath
-    grammar = @registry.grammarForScopeName(scopeName)
-    lineTokens = grammar.tokenizeLines(fileContents)
+    grammar = @registry.grammarForScopeName scopeName
     grammar ?= pickGrammar.selectGrammar(@registry, filePath, fileContents)
+    lineTokens = grammar.tokenizeLines fileContents
 
     # Remove trailing newline
     if lineTokens.length > 0
