@@ -2,36 +2,47 @@
 
 path = require 'path'
 fs = require 'fs-plus'
-optimist = require 'optimist'
 Textlex = require './textlex'
-
-module.exports = ->
-  cli = optimist.describe('h', 'Show this message').alias('h', 'help')
-                .describe('i', 'Path to file or folder of grammars to include').alias('i', 'include').string('i')
-                .describe('o', 'File path to write the JSON output to').alias('o', 'output').string('o')
-                .describe('s', 'Scope name of the grammar to use').alias('s', 'scope').string('s')
-                .describe('v', 'Output the version').alias('v', 'version').boolean('v')
-                .describe('f', 'File path to use for grammar detection when reading from stdin').alias('f', 'file-path').string('f')
-                .describe('t', 'Tab for JSON output (a string or the number of spaces to use)').alias('t', 'tab').default('t', '\t')
-  optimist.usage """
+cli = require 'yargs'
+  .usage '''
     Usage: textlex [options] [file...]
 
-    Lexically analyse text and output the tokens for each line in JSON format.
+    Lexically analyse text and output the tokens for each line in JSON format. \
+    If no input files are specified then the text to analyse is read from \
+    standard in. If no output file is specified then the JSON is written to \
+    standard out.
+  '''
+  .option 'include',
+    alias: 'i'
+    describe: 'Path to file or folder of grammars to include'
+    type: 'string'
+  .option 'output',
+    alias: 'o'
+    describe: 'File path to write the JSON output to'
+    type: 'string'
+  .option 'scope',
+    alias: 's'
+    describe: 'Scope name of the grammar to use'
+    type: 'string'
+  .option 'file-path',
+    alias: 'f'
+    describe: 'File path to use for grammar detection when reading from stdin'
+    type: 'string'
 
-    If no input files are specified then the text to analyse is read from standard in.
-
-    If no output file is specified then the JSON is written to standard out.
-  """
-
-  if cli.argv.help
-    cli.showHelp()
-    return
-
-  if cli.argv.version
+  .option 'tab',
+    alias: 't'
+    default: '\t'
+    describe: 'Tab for JSON output (a string or the number of spaces to use)'
+    type: 'string'
+  .help()
+  .alias 'h', 'help'
+  .version ->
     {version} = require '../package.json'
-    console.log(version)
-    return
+    return version
+  .alias 'v', 'version'
 
+
+module.exports = ->
   outputPath = cli.argv.output
   outputPath = path.resolve(outputPath) if outputPath
 
