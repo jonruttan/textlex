@@ -1,6 +1,6 @@
 module.exports = (grunt) ->
   grunt.initConfig
-    pkg: grunt.file.readJSON('package.json')
+    pkg: grunt.file.readJSON 'package.json'
 
     coffee:
       glob_to_multiple:
@@ -29,10 +29,6 @@ module.exports = (grunt) ->
           stderr: true
           failOnError: true
 
-  grunt.loadNpmTasks('grunt-contrib-coffee')
-  grunt.loadNpmTasks('grunt-shell')
-  grunt.loadNpmTasks('grunt-coffeelint')
-  grunt.loadTasks('tasks')
     watch:
       scripts:
         files: ['src/*.coffee'],
@@ -40,13 +36,18 @@ module.exports = (grunt) ->
         options:
           spawn: false
 
-  grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks 'grunt-coffeelint'
+  grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-shell'
+  grunt.loadTasks 'tasks'
 
   grunt.registerTask 'clean', ->
-    grunt.file.delete('lib') if grunt.file.exists('lib')
-    grunt.file.delete('gen') if grunt.file.exists('gen')
+    grunt.file.delete 'lib' if grunt.file.exists 'lib'
+    grunt.file.delete 'gen' if grunt.file.exists 'gen'
 
-  grunt.registerTask('lint', ['coffeelint'])
-  grunt.registerTask('default', ['coffeelint', 'coffee'])
-  grunt.registerTask('test', ['default', 'lint', 'shell:test'])
-  grunt.registerTask('prepublish', ['clean', 'build-grammars', 'test'])
+  grunt.registerTask 'lint', ['coffeelint']
+  grunt.registerTask 'build', ['coffeelint', 'coffee']
+  grunt.registerTask 'default', ['build']
+  grunt.registerTask 'test', ['build', 'lint', 'shell:test']
+  grunt.registerTask 'prepublish', ['clean', 'build-grammars', 'test']
