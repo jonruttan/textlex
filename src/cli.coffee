@@ -44,35 +44,41 @@ cli = require 'yargs'
 
 module.exports = ->
   outputPath = cli.argv.output
-  outputPath = path.resolve(outputPath) if outputPath
+  outputPath = path.resolve outputPath if outputPath
 
-  textlex = new Textlex(includePath: cli.argv.include)
+  textlex = new Textlex includePath: cli.argv.include
 
   stringify = (tokens, tab) ->
     JSON.stringify tokens, null, tab
 
   output = (outputPath, tokens, tab) ->
+    tab = ' '.repeat tab if tab is String parseInt tab
+    tokensString = stringify tokens, tab
     if outputPath
-      fs.writeFileSync(outputPath, stringify tokens, tab)
+      fs.writeFileSync outputPath, tokensString
     else
-      console.log(stringify tokens, tab)
+      console.log tokensString
 
   if cli.argv._.length
     for filePath in cli.argv._
-      filePath = path.resolve(filePath)
-      unless fs.isFileSync(filePath)
-        console.error("Specified path is not a file: #{filePath}")
-        process.exit(1)
+      filePath = path.resolve filePath
+      unless fs.isFileSync filePath
+        console.error "Specified path is not a file: #{filePath}"
+        process.exit 1
         return
 
-      tokens = textlex.lexSync({filePath, scopeName: cli.argv.scope})
+      tokens = textlex.lexSync {filePath, scopeName: cli.argv.scope}
       output outputPath, tokens, cli.argv.tab
   else
     filePath = cli.argv.f
     process.stdin.resume()
-    process.stdin.setEncoding('utf8')
+    process.stdin.setEncoding 'utf8'
     fileContents = ''
     process.stdin.on 'data', (chunk) -> fileContents += chunk.toString()
     process.stdin.on 'end', ->
-      tokens = textlex.lexSync({filePath, fileContents, scopeName: cli.argv.scope})
+      tokens = textlex.lexSync {
+        filePath,
+        fileContents,
+        scopeName: cli.argv.scope
+      }
       output outputPath, tokens, cli.argv.tab
