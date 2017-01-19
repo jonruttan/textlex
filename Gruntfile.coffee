@@ -33,6 +33,14 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-shell')
   grunt.loadNpmTasks('grunt-coffeelint')
   grunt.loadTasks('tasks')
+    watch:
+      scripts:
+        files: ['src/*.coffee'],
+        tasks: ['test'],
+        options:
+          spawn: false
+
+  grunt.loadNpmTasks('grunt-contrib-watch')
 
   grunt.registerTask 'clean', ->
     grunt.file.delete('lib') if grunt.file.exists('lib')
