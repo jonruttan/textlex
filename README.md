@@ -17,23 +17,24 @@ Run `textlex -h` for full details about the supported options.
 To convert a source file to tokenized JSON run the following:
 
 ```sh
-textlex file.coffee -o file.json
+textlex source.js -o tokens.json
 ```
 
 Now you have a `file.json` file with an array of line token arrays.
 
 #### Using in code
 
-To convert a source file to tokens use the following code:
+To convert a source string to tokens use the following code:
 
-```coffee
-textlex = require 'textlex'
-textlexer = new textlex()
-linetokens = textlexer.lexSync
-  fileContents: "var hello = 'world';"
-  scopeName: 'source.js'
+```js
+var textlex = require('textlex');
+var textlexer = new textlex();
+var linetokens = textlexer.lexSync({
+  fileContents: "var hello = 'world';",
+  scopeName: 'source.js',
+});
 
-console.log JSON.stringify linetokens, null, 2
+console.log(JSON.stringify(linetokens, null, 2));
 ```
 
 Outputs:
