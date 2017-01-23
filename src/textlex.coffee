@@ -71,7 +71,7 @@ class Textlex
 
     fileContents ?= fs.readFileSync(filePath, 'utf8') if filePath
     grammar = @registry.grammarForScopeName scopeName
-    grammar ?= pickGrammar.selectGrammar(@registry, filePath, fileContents)
+    grammar ?= pickGrammar.selectGrammar @registry, filePath, fileContents
     lineTokens = grammar.tokenizeLines fileContents
 
     # Remove trailing newline
