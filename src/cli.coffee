@@ -43,6 +43,10 @@ cli = require 'yargs'
 
 
 module.exports = ->
+  # If the Tab argument is an integer, convert it to spaces
+  if cli.argv.tab is String parseInt cli.argv.tab
+    cli.argv.tab = ' '.repeat cli.argv.tab
+
   outputPath = cli.argv.output
   outputPath = path.resolve outputPath if outputPath
 
@@ -52,7 +56,6 @@ module.exports = ->
     JSON.stringify tokens, null, tab
 
   output = (outputPath, tokens, tab) ->
-    tab = ' '.repeat tab if tab is String parseInt tab
     tokensString = stringify tokens, tab
     if outputPath
       fs.writeFileSync outputPath, tokensString
