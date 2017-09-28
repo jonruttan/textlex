@@ -3,10 +3,9 @@ A lexical analyser using TextMate-style grammars: reads in code, returns an arra
 Based on code converted from the [Highlights](https://github.com/atom/highlights) project.
 
 [![Build Status](https://travis-ci.org/jonruttan/textlex.svg)](https://travis-ci.org/jonruttan/textlex)
+[![Greenkeeper badge](https://badges.greenkeeper.io/jonruttan/textlex.svg)](https://greenkeeper.io/)
 
 ### Installing
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/jonruttan/textlex.svg)](https://greenkeeper.io/)
 
 ```sh
 npm install textlex
