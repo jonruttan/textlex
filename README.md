@@ -6,6 +6,8 @@ Based on code converted from the [Highlights](https://github.com/atom/highlights
 
 ### Installing
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jonruttan/textlex.svg)](https://greenkeeper.io/)
+
 ```sh
 npm install textlex
 ```
