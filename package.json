@@ -20,7 +20,7 @@
   "homepage": "https://github.com/jonruttan/textlex",
   "dependencies": {
     "first-mate": "^7.0.9",
-    "first-mate-select-grammar": "^1.0.1",
+    "first-mate-select-grammar": "^1.0.3",
     "fs-plus": "^3.0.1",
     "season": "^6.0.1",
     "underscore-plus": "^1.6.6",
