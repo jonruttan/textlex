@@ -24,7 +24,7 @@
     "fs-plus": "^3.0.1",
     "season": "^6.0.1",
     "underscore-plus": "^1.6.6",
-    "yargs": "^9.0.1"
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "coffeelint": "^2.0.0",
