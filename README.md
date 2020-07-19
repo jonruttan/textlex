@@ -1,8 +1,11 @@
+# Textlex
+
 A lexical analyser using TextMate-style grammars: reads in code, returns an array containing an array of tokens for each line.
 
 Based on code converted from the [Highlights](https://github.com/atom/highlights) project.
 
 [![Build Status](https://travis-ci.org/jonruttan/textlex.svg)](https://travis-ci.org/jonruttan/textlex)
+[![Greenkeeper badge](https://badges.greenkeeper.io/jonruttan/textlex.svg)](https://greenkeeper.io/)
 
 ### Installing
 
