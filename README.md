@@ -17,7 +17,7 @@ Run `textlex -h` for full details about the supported options.
 To convert a source file to tokenized JSON run the following:
 
 ```sh
-textlex source.js -o tokens.json
+textlex script.js -o tokens.json
 ```
 
 Now you have a `file.json` file with an array of line token arrays.
